@@ -142,22 +142,32 @@ createsAnArrayOfRandomNumbers(valueStep: 5, valueLastY: 100)
 /*:
  4.5 Создайте функции для удаления всех четных чисел из массива и чисел, которые делятся на *3*. Для определения четного числа и числа которое делится на *3* используйте ранее созданные функции из задания **4.1** и **4.2**.
  */
-//var valueFirstX = 0
-//let valueStep = 5
-//let valueLastY = 100
-//var numbersSet: [Int] = []
-//    while valueFirstX < valueLastY {
-//        valueFirstX += valueStep
-//        numbersSet.append(valueFirstX)
-//        }
-//print(numbersSet)
 
 
 
+func removesNumbersDivisibleBy2And3(array: [Int]) {
 
-determinesTheParity
+    func determinesTheParity(array: [Int]) -> Bool {
+        return array.count % 2 == 0 ? true : false
+    }
 
-definesDivisionBy3WithoutRemainder
+    func definesDivisionBy3WithoutRemainder(array: [Int]) -> Bool {
+        return array.count % 3 == 0 ? true : false
+    }
+
+    var arrayNew = array
+    
+    for i in arrayNew {
+        if determinesTheParity(array.count) && definesDivisionBy3WithoutRemainder(array.count)  {
+            arrayNew.remove(at: i)
+        }
+    }
+    print(arrayNew)
+}
+
+removesNumbersDivisibleBy2And3(array: [1, 14, 17, 22])
+
+
 
 /*:
  4.6* Создайте функцию, параметром которой будет год(например, 1987), эта функция должна возвращать век(число) для этого года.
