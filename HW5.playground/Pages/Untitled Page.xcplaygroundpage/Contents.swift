@@ -157,21 +157,20 @@ createsAnArrayOfRandomNumbers(start: 0, finish: 100)
  4.5 Создайте функции для удаления всех четных чисел из массива и чисел, которые делятся на *3*. Для определения четного числа и числа которое делится на *3* используйте ранее созданные функции из задания **4.1** и **4.2**.
  */
 
-
-func removesNumbersDivisibleBy2And3(array: [Int]) {
-
-    func determinesTheParity(number: Int) -> Int {
+    func determinesTheParity2(number: Int) -> Int {
         return number % 2
     }
 
-    func definesDivisionBy3WithoutRemainder(number: Int) -> Int {
+    func definesDivisionBy3WithoutRemainder3(number: Int) -> Int {
         return number % 3
     }
+
+func removesNumbersDivisibleBy2And3(array: [Int]) {
 
     var arrayNew = array
 
     for number in arrayNew {
-        if determinesTheParity(number: number) == 0 || definesDivisionBy3WithoutRemainder(number: number) == 0  {
+        if determinesTheParity2(number: number) == 0 || definesDivisionBy3WithoutRemainder3(number: number) == 0  {
             
             if let index = arrayNew.firstIndex(of: number) {
                             arrayNew.remove(at: index)
