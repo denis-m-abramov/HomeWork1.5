@@ -70,10 +70,10 @@ calculatesQuantityFromDateOfBirth(days: 28, months: 10, years: 1994)
  ### Задание 3
  3.1 Создайте функцию, которая считает общую сумму денег, хранящихся в кошельке. В кошельке имеются купюры различного достоинства от 50 до 5000 рублей
  */
-func countsAmountOfMoney(purse: [Int?]?) {
+func countsAmountOfMoney(purse: [Int?]) {
 
    var amountOfMoneyInWallet = 0
-    for index in (purse ?? []) {
+    for index in purse {
         amountOfMoneyInWallet += index ?? 0
     }
     print(amountOfMoneyInWallet)
@@ -88,18 +88,18 @@ countsAmountOfMoney(purse: [-50, nil, 0, 50, 100, 200, 500, 1000, 2000, 5000, 50
  */
 func determinesTheParity(number: Int) -> Bool {
 
-    return number % 2 == 0 ? true : false
+    return number % 2 == 0
 }
 
 determinesTheParity(number: 9)
 
-
+  
 /*:
 4.2 Создайте функцию, которая определяет делится ли число на *3* без остатка. Функция так же должна возвращать булево значение. Так же подумайте над названием функции
 */
 func definesDivisionBy3WithoutRemainder(number: Int) -> Bool {
 
-    return number % 3 == 0 ? true : false
+    return number % 3 == 0
 }
 
 definesDivisionBy3WithoutRemainder(number: 4)
@@ -125,18 +125,32 @@ definesDivisionBy3WithoutRemainder(number: 4)
 /*:
 4.4 Создайте массив чисел от *1* до *100*, используя для этого вышесозданную функцию
  */
-func createsAnArrayOfRandomNumbers(valueStep: Int, valueLastY: Int) {
+//func createsAnArrayOfRandomNumbers(valueStep: Int, valueLastY: Int) {
+//
+//var valueFirstX = 1
+//var numbersSet: [Int] = []
+//    while valueFirstX <= valueLastY {
+//        valueFirstX += valueStep
+//        if valueFirstX <= valueLastY {
+//        numbersSet.append(valueFirstX)
+//        }
+//        }
+//print(numbersSet)
+//}
+//
+//createsAnArrayOfRandomNumbers(valueStep: 5, valueLastY: 100)
 
-var valueFirstX = 1
-var numbersSet: [Int] = []
-    while valueFirstX < valueLastY {
-        valueFirstX += valueStep
-        numbersSet.append(valueFirstX)
-        }
-print(numbersSet)
+
+func createsAnArrayOfRandomNumbers(start: Int, finish: Int) -> [Int] {
+
+var numbers: [Int] = []
+ for value in start...finish {
+ numbers.append(value)
+ }
+return numbers
 }
-
-createsAnArrayOfRandomNumbers(valueStep: 5, valueLastY: 100)
+ 
+createsAnArrayOfRandomNumbers(start: 0, finish: 100)
 
 
 /*:
@@ -144,38 +158,43 @@ createsAnArrayOfRandomNumbers(valueStep: 5, valueLastY: 100)
  */
 
 
-
 func removesNumbersDivisibleBy2And3(array: [Int]) {
 
-    func determinesTheParity(array: [Int]) -> Bool {
-        return array.count % 2 == 0 ? true : false
+    func determinesTheParity(number: Int) -> Int {
+        return number % 2
     }
 
-    func definesDivisionBy3WithoutRemainder(array: [Int]) -> Bool {
-        return array.count % 3 == 0 ? true : false
+    func definesDivisionBy3WithoutRemainder(number: Int) -> Int {
+        return number % 3
     }
 
     var arrayNew = array
-    
-    for i in arrayNew {
-        if determinesTheParity(array.count) && definesDivisionBy3WithoutRemainder(array.count)  {
-            arrayNew.remove(at: i)
-        }
+
+    for number in arrayNew {
+        if determinesTheParity(number: number) == 0 || definesDivisionBy3WithoutRemainder(number: number) == 0  {
+            
+            if let index = arrayNew.firstIndex(of: number) {
+                            arrayNew.remove(at: index)
+                        }
     }
+}
     print(arrayNew)
 }
 
-removesNumbersDivisibleBy2And3(array: [1, 14, 17, 22])
-
-
+removesNumbersDivisibleBy2And3(array: Array(0...50))
 
 /*:
  4.6* Создайте функцию, параметром которой будет год(например, 1987), эта функция должна возвращать век(число) для этого года.
  
  Например, для года 1900, функция возвратит 20. Для 1899 возвратит 19
  */
+func centuryFromYear(year: Int) -> Int {
 
+    return (year + 99) / 100
 
+}
+
+centuryFromYear(year: 2000)
 /*:
  5. Создайте функцию, которая генерирует и возвращает массив из N чисел Фибоначчи, N  - это аргумент функции.
  Создайте 2 варианта этой функции:
@@ -189,58 +208,24 @@ removesNumbersDivisibleBy2And3(array: [1, 14, 17, 22])
  
  Результат: [0, 1, 1, 2, 3, 5]
  */
-//func generatesAndReturnsAnArrayFibonacciNumbers(of N: Int) -> [Int] {
-//
-//
-//    return
-//}
-
-//let n = 6
-//
-//let fibonacciSequence = [Int](arrayLiteral: 15)
-//let index = 12
-//print(fibonacciSequence)
-//print(fibonacciSequence[index])
-//let value = [Int].calculate(fibonacciAt: index)
-//print("\(value!)")
-
-
-extension Array where Element: BinaryInteger {
-
-    private mutating func fibonacci(index: Int) {
-        if index >= count {
-            return
-        }
-        self[index] = self[index-1] + self[index-2]
-        return fibonacci(index: index+1)
+func generateFib(n: Int) -> [Int] {
+    
+    guard n >= 0 else {
+        return []
     }
 
-    init(fibonacci count: Int) {
-        self = [Element]()
-        if count < 0 {
-            self = [Element]()
-        }
-        self = [Element](repeating: 1, count: count)
-        fibonacci(index: 2)
+    var currentItem = 0
+    var nextItem = 1
+    var resultArray = [Int]()
+
+    for _ in 0..<n {
+        resultArray.append(nextItem)
+        let sum = currentItem + nextItem
+        currentItem = nextItem
+        nextItem = sum
     }
-
-    static func calculate(fibonacciAt index: Int) -> Element? {
-
-        if index < 0 {
-            return nil
-        }
-
-        if index < 2 {
-            return 1
-        }
-
-        func calc(a: Element, b: Element, index: Int) -> Element {
-            if index == 1 {
-                return b
-            }
-            return calc(a: b, b: a+b, index: index-1)
-        }
-
-        return calc(a: 1, b: 1, index: index)
-    }
+    
+    return resultArray
 }
+
+generateFib(n: 10)
