@@ -31,6 +31,9 @@ for (nameComand, values) in resultsGames {
  ### Задание 2
 Создайте функцию которая принимает в качестве аргументов день, месяц и год вашего рождения и делает расчет полных прожитых вами дней, месяцев и лет с момента вашего рождения. При вызове функции на консоль должно выходить то же самое сообщение, что и в предыдущих заданиях
  */
+//Способ 1
+
+
 func calculatesQuantityFromDateOfBirth(days: Int, months: Int, years: Int) {
     
 //создаем необходимые свойства (день, месяц, год) на момент выполнения задания 6.11.2020, скобки в коде указаны для лучшего понимания структуры вычисления:
@@ -66,21 +69,58 @@ print("\(yearsPassed) years, or \(monthsPassed) months, or \(daysPassed) days, o
 
 calculatesQuantityFromDateOfBirth(days: 28, months: 10, years: 1994)
 
+
+
+
+//Способ 2
+
+func calculateTimeInterval(fromDay day: Int, month: Int, year: Int) {
+    let currentDate = Date()
+    let calendar = Calendar.current
+    let dateComponents = DateComponents(year: year, month: month, day: day)
+    
+    if let someDateTime = calendar.date(from: dateComponents) {
+        let dayPassed = calendar.dateComponents([.day], from: someDateTime, to: currentDate).day ?? 0
+        let monthPassed = calendar.dateComponents([.month], from: someDateTime, to: currentDate).month ?? 0
+        let yearPassed = calendar.dateComponents([.year], from: someDateTime, to: currentDate).year ?? 0
+        
+        print("\(yearPassed) years, or \(monthPassed) months, or \(dayPassed) days have passed since")
+    }
+}
+
+calculateTimeInterval(fromDay: 28, month: 10, year: 1994)
 /*:
  ### Задание 3
  3.1 Создайте функцию, которая считает общую сумму денег, хранящихся в кошельке. В кошельке имеются купюры различного достоинства от 50 до 5000 рублей
  */
-func countsAmountOfMoney(purse: [Int?]) {
+//Способ 1
+
+func countsAmountOfMoney(purse: [Int?]) -> Int {
 
    var amountOfMoneyInWallet = 0
     for index in purse {
         amountOfMoneyInWallet += index ?? 0
     }
-    print(amountOfMoneyInWallet)
+    
+    return amountOfMoneyInWallet
+}
+
+
+
+
+//Способ 2
+
+func countsAmountOfMoneyV2(purse: Int...) -> Int {
+    purse.reduce(0, +)
 }
 
 //: 3.2 Заполните массив различными купюрами и подсчитайте общую сумму
-countsAmountOfMoney(purse: [-50, nil, 0, 50, 100, 200, 500, 1000, 2000, 5000, 5000])
+//let wallet = [-50, nil, 0, 50, 100, 200, 500, 1000, 2000, 5000, 5000]
+//countsAmountOfMoney(purse: wallet)
+
+print(countsAmountOfMoney(purse: [-50, nil, 0, 50, 100, 200, 500, 1000, 2000, 5000, 5000]))
+
+print(countsAmountOfMoneyV2(purse: -50, 0, 50, 100, 200, 500, 1000, 2000, 5000, 5000))
 
 /*:
  ### Задание 4
@@ -88,7 +128,7 @@ countsAmountOfMoney(purse: [-50, nil, 0, 50, 100, 200, 500, 1000, 2000, 5000, 50
  */
 func determinesTheParity(number: Int) -> Bool {
 
-    return number % 2 == 0
+    number % 2 == 0
 }
 
 determinesTheParity(number: 9)
@@ -99,7 +139,7 @@ determinesTheParity(number: 9)
 */
 func definesDivisionBy3WithoutRemainder(number: Int) -> Bool {
 
-    return number % 3 == 0
+    number % 3 == 0
 }
 
 definesDivisionBy3WithoutRemainder(number: 4)

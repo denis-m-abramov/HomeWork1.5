@@ -88,3 +88,22 @@ missedCount = whatToDo(missed: true)(missedCount)
 missedCount = whatToDo(missed: false)(missedCount)
 missedCount = whatToDo(missed: true)(5)
 
+
+func sayHello(to person: String) -> String {
+    return "Hello," + " " + person + "!"
+}
+print(sayHello(to: "Maria"))
+sayHello(to: "Denis")
+
+func printAndCount(string: String) -> Int {
+    print(string)
+    return string.count
+}
+printAndCount(string: "Hello, world!")
+
+
+func example(_ first: Int) -> Int {
+    return first
+}
+
+example(10)
